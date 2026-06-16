@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+
+<!-- <div class="demo" style="background-color: lightblue; padding: 20px">
+    <ul>
+        <li>Mango</li>
+        <li>Apple</li>
+        <li>Orange</li>
+    </ul>
+</div>
+
+<form action="add" method="post">
+    {% csrf_token %}
+    <input type="number" name="num1" placeholder="Enter first number"><br>
+    <input type="number" name="num2" placeholder="Enter second number"><br>
+    <input type="submit" value="Add">
+</form> -->
+
+{% block content %}
+<div class="container">
+    <h1>Student Management System</h1>
+    <p class="muted">Uses Django CreateView, UpdateView, DeleteView</p>
+
+    <p>
+        <a href="{% url 'item_create' %}" class="button">Create New Item</a>
+    </p>
+
+    <h2>Read</h2>
+    {% if items %}
+         <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td class="actions">
+                        <a href="{% url 'item_update' item.id %}">Edit</a>
+                        <a href="{% url 'item_delete' item.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+         </table>
+         {% else %}
+               <p>NO items yet.</p>
+         {% endif %}
+</div>
+{% endblock %}
